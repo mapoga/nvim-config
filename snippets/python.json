@@ -1,0 +1,31 @@
+{
+    "main": {
+        "prefix": "main",
+        "body": [
+            "\n",
+            "def _main():",
+            "\t$1",
+            "\n",
+            "if __name__ == \"__main__\":",
+            "\t_main()"
+        ]
+    },
+    "get": {
+        "prefix": "get",
+        "body": [
+            "def get_${1:name}(self) -> ${2:type}:",
+            "\treturn self._${1:name}",
+            "\n"
+        ]
+    },
+    "gets": {
+        "prefix": "gets",
+        "body": [
+            "def get_${1:name}(self) -> ${2:type}:",
+            "\treturn self._${1:prop}\n",
+            "def set_${1:name}(self, val: ${2:type}) -> None:",
+            "\tself._${1:name} = val",
+            "\n"
+        ]
+    }
+}
