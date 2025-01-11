@@ -145,8 +145,10 @@ return {
         -- Custom config on top of defaults
         opts = {
             view = { adaptive_size = true },
+            update_focused_file = { enable = false },
         },
     },
+
     {
         "kdheepak/lazygit.nvim",
         lazy = true,
