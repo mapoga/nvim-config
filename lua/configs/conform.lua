@@ -7,6 +7,7 @@ local options = {
         html = { "prettier" },
         json = { "fixjson" },
         YAML = { "yamlfix" },
+        XML = { "xmlformatter" },
     },
 
     formatters = {

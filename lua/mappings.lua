@@ -21,9 +21,19 @@ wk.add {
 wk.add {
     { "<leader>fd", group = "Directory" },
     {
+        "<leader>fdy",
+        function()
+            require("configs/cwd_switcher").glob_picker("~/Documents/python_packages/", "*/*", {
+                prompt_title = "Find Python Package",
+                layout_config = { width = 0.3, height = 0.4, prompt_position = "top" },
+            })
+        end,
+        desc = "Telescope find python package",
+    },
+    {
         "<leader>fdw",
         function()
-            require("configs/cwd_switcher").glob_picker("~/packages/", "*/*", {
+            require("configs/cwd_switcher").glob_picker("~/Documents/rez_packages/", "*", {
                 prompt_title = "Find Work Package",
                 layout_config = { width = 0.3, height = 0.4, prompt_position = "top" },
             })
@@ -33,7 +43,7 @@ wk.add {
     {
         "<leader>fdp",
         function()
-            require("configs/cwd_switcher").glob_picker("/Y/rez/packages/publish_type", "*/*", {
+            require("configs/cwd_switcher").glob_picker("/Y/rez/packages/publish_type/", "*/*", {
                 prompt_title = "Find Rez Publish Type",
                 layout_config = { width = 0.4, height = 0.8, prompt_position = "top" },
             })
@@ -43,7 +53,7 @@ wk.add {
     {
         "<leader>fdt",
         function()
-            require("configs/cwd_switcher").glob_picker("/Y/rez/packages/tools", "*/*", {
+            require("configs/cwd_switcher").glob_picker("/Y/rez/packages/tools/", "*/*", {
                 prompt_title = "Find Rez Tool",
                 layout_config = { width = 0.4, height = 0.8, prompt_position = "top" },
             })
