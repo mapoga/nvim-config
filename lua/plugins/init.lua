@@ -132,7 +132,10 @@ return {
             require("venv-selector").setup {
                 settings = {
                     search = {
-                        my_venvs = {
+                        user = {
+                            command = "$FD -HI -p '.venv/bin/python$' ~/Documents/venvs/",
+                        },
+                        project = {
                             command = "$FD python$ $CWD/.venv/bin",
                         },
                     },
