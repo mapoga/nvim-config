@@ -10,6 +10,16 @@ map("i", "jk", "<ESC>")
 --
 -- Custom
 local wk = require "which-key"
+--
+-- Formatting
+wk.add {
+    {
+        "<leader>fp",
+        '<cmd>args ./**/*.py | argdo execute "normal gg" | write<CR>',
+        desc = "Format CWD python files",
+        -- icon = { icon = "󰊢", color = "orange" },
+    },
+}
 
 -- Git
 wk.add {
