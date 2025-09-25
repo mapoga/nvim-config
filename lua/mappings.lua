@@ -31,6 +31,16 @@ wk.add {
 wk.add {
     { "<leader>fd", group = "Directory" },
     {
+        "<leader>fdr",
+        function()
+            require("configs/cwd_switcher").glob_picker("/Y/rez/packages/", "*/*/*", {
+                prompt_title = "Find Released Package",
+                layout_config = { width = 0.3, height = 0.4, prompt_position = "top" },
+            })
+        end,
+        desc = "Telescope find released package",
+    },
+    {
         "<leader>fdy",
         function()
             require("configs/cwd_switcher").glob_picker("~/Documents/python_packages/", "*/*", {
