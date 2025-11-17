@@ -1,5 +1,10 @@
 return {
     {
+        "christoomey/vim-tmux-navigator",
+        lazy = false,
+    },
+
+    {
         "stevearc/conform.nvim",
         event = "BufWritePre",
         config = function()
