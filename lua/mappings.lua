@@ -27,6 +27,12 @@ wk.add {
         desc = "Format CWD python files",
         -- icon = { icon = "󰊢", color = "orange" },
     },
+    {
+        "<leader>ft",
+        "<cmd>FormatToggle<CR>",
+        desc = "Toggle Format-On-Save",
+        icon = { icon = "", color = "yellow" },
+    },
 }
 
 -- Git
