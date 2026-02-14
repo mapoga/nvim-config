@@ -179,11 +179,9 @@ return {
 
     {
         "nvim-tree/nvim-tree.lua",
-        -- Custom config on top of defaults
-        opts = {
-            view = { adaptive_size = true },
-            update_focused_file = { enable = false },
-        },
+        config = function()
+            require "configs.nvim-tree"
+        end,
     },
 
     {
