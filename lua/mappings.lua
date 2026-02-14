@@ -35,12 +35,6 @@ wk.add {
     },
 }
 
--- Git
-wk.add {
-    { "<leader>gg", "<cmd>Git<CR>", desc = "git status", icon = { icon = "󰊢", color = "orange" } },
-    { "<leader>gc", "<cmd>Git commit<CR>", desc = "git commit", icon = { icon = "󰊢", color = "orange" } },
-}
-
 -- Custom work directory finder
 wk.add {
     { "<leader>fd", group = "Directory" },
@@ -52,7 +46,7 @@ wk.add {
                 layout_config = { width = 0.3, height = 0.4, prompt_position = "top" },
             })
         end,
-        desc = "Telescope find released package",
+        desc = "Find Released",
     },
     {
         "<leader>fdy",
@@ -62,7 +56,7 @@ wk.add {
                 layout_config = { width = 0.3, height = 0.4, prompt_position = "top" },
             })
         end,
-        desc = "Telescope find python package",
+        desc = "Find Python",
     },
     {
         "<leader>fdw",
@@ -72,7 +66,7 @@ wk.add {
                 layout_config = { width = 0.3, height = 0.4, prompt_position = "top" },
             })
         end,
-        desc = "Telescope find project",
+        desc = "Find Work",
     },
     {
         "<leader>fdp",
@@ -82,7 +76,7 @@ wk.add {
                 layout_config = { width = 0.4, height = 0.8, prompt_position = "top" },
             })
         end,
-        desc = "Telescope find rez Publish Type",
+        desc = "Find PublishType",
     },
     {
         "<leader>fdt",
@@ -92,6 +86,6 @@ wk.add {
                 layout_config = { width = 0.4, height = 0.8, prompt_position = "top" },
             })
         end,
-        desc = "Telescope find rez tool",
+        desc = "Find Tool",
     },
 }
