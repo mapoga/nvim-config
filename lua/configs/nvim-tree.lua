@@ -54,4 +54,10 @@ require("nvim-tree").setup {
             },
         },
     },
+    actions = {
+        change_dir = {
+            enable = true,
+            global = true, -- new
+        },
+    },
 }
