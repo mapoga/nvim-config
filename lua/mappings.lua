@@ -19,6 +19,22 @@ wk.add {
     { "<C-k>", "<cmd>TmuxNavigateUp<CR>", desc = "window up" },
 }
 
+-- Gimmicks
+wk.add {
+    {
+        "<leader>pr",
+        "<cmd>CellularAutomaton make_it_rain<CR>",
+        desc = "Falling Sand",
+        icon = { icon = "󰊗", color = "yellow" },
+    },
+    {
+        "<leader>ps",
+        "<cmd>SnakeStart<CR>",
+        desc = "Snake Game",
+        icon = { icon = "󰊗", color = "yellow" },
+    },
+}
+
 -- Formatting
 wk.add {
     {

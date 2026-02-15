@@ -205,6 +205,20 @@ return {
         },
     },
 
+    {
+        "eandrju/cellular-automaton.nvim",
+        lazy = false,
+    },
+
+    {
+        "Febri-i/snake.nvim",
+        lazy = false,
+        dependencies = {
+            "Febri-i/fscreen.nvim",
+        },
+        opts = {},
+    },
+
     -- {
     --     "arnamak/stay-centered.nvim",
     --     lazy = false,
