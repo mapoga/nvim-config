@@ -11,6 +11,11 @@ map("i", "jk", "<ESC>")
 -- Custom
 local wk = require "which-key"
 
+-- Windows
+wk.add {
+    { "<C-w>h", "<cmd>split<CR>", desc = "Split window horizontally" },
+}
+
 -- Tmux Navigation
 wk.add {
     { "<C-h>", "<cmd>TmuxNavigateLeft<CR>", desc = "window left" },
