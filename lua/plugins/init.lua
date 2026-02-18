@@ -6,20 +6,9 @@ return {
 
     {
         "nvim-telescope/telescope.nvim",
-        opts = {
-            defaults = {
-                mappings = {
-                    i = {
-                        ["<C-v>"] = require("telescope.actions").send_selected_to_qflist
-                            + require("telescope.actions").open_qflist,
-                    },
-                    n = {
-                        ["<C-v>"] = require("telescope.actions").send_selected_to_qflist
-                            + require("telescope.actions").open_qflist,
-                    },
-                },
-            },
-        },
+        opts = function()
+            return require "configs.telescope"
+        end,
     },
 
     {
