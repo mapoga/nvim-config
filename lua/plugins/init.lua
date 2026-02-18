@@ -5,6 +5,24 @@ return {
     },
 
     {
+        "nvim-telescope/telescope.nvim",
+        opts = {
+            defaults = {
+                mappings = {
+                    i = {
+                        ["<C-v>"] = require("telescope.actions").send_selected_to_qflist
+                            + require("telescope.actions").open_qflist,
+                    },
+                    n = {
+                        ["<C-v>"] = require("telescope.actions").send_selected_to_qflist
+                            + require("telescope.actions").open_qflist,
+                    },
+                },
+            },
+        },
+    },
+
+    {
         "Wansmer/treesj",
         keys = { "<space>m", "<space>j", "<space>s" },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
