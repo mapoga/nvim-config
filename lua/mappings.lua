@@ -16,6 +16,11 @@ wk.add {
     { "<C-w>h", "<cmd>split<CR>", desc = "Split window horizontally" },
 }
 
+-- Telescope Changed Files
+wk.add {
+    { "<leader>fg", "<cmd>Telescope git_status<CR>", desc = "telescope git status" },
+}
+
 -- Tmux Navigation
 wk.add {
     { "<C-h>", "<cmd>TmuxNavigateLeft<CR>", desc = "window left" },
