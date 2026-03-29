@@ -38,6 +38,6 @@ end)
 
 --
 -- Custom starts here
-vim.g.vscode_snippets_path = "~/.config/nvim/snippets/"
+vim.g.vscode_snippets_path = "./snippets/"
 -- Fix bad reversed highlighting of matching brackets.
 vim.api.nvim_set_hl(0, "MatchParen", { underline = true, sp = "orange" })
