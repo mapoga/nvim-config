@@ -8,8 +8,8 @@ local function rez_build()
     }
 
     -- Command
-    local cmd = { "sleep", "2" }
-    -- local cmd = { "rez", "build", "-ic" }
+    -- local cmd = { "sleep", "2" }
+    local cmd = { "rez", "build", "-ic" }
 
     -- Launch in Background
     local stack_trace = ""
