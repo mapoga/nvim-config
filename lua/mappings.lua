@@ -70,7 +70,8 @@ vim.keymap.del({ "n", "t" }, "<A-h>") -- Hidden Hori Term
 vim.keymap.del({ "n", "t" }, "<A-i>") -- Hidden Float Term
 
 -- Rez ------------------------------------------------------------------------
-map({ "n", "t" }, "<leader>pb", require("configs.rez").rez_build, { desc = "Package Build (rez)" })
+map({ "n", "t" }, "<leader>pb", require("configs.rez").build, { desc = "Package Build (rez)" })
+map({ "n", "t" }, "<leader>px", require("configs.rez").clear_build, { desc = "Package Remove Build (rez)" })
 
 --
 -- Windows --------------------------------------------------------------------
