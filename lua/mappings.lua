@@ -55,13 +55,45 @@ vim.keymap.del({ "n", "t" }, "<A-h>") -- Hidden Hori Term
 vim.keymap.del({ "n", "t" }, "<A-i>") -- Hidden Float Term
 
 -- Rez ------------------------------------------------------------------------
+local spin_timer = vim.uv.new_timer()
+local spin_idx = 1
+local spin_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+local spin_inter = 100
+
+local function start_echo_spinner()
+    spin_timer:start(
+        0,
+        spin_inter,
+        vim.schedule_wrap(function()
+            -- Update message with next spinner text.
+            spin_idx = spin_idx + 1
+            local wrapped_idx = ((spin_idx - 1) % #spin_frames) + 1
+            local spin_str = spin_frames[wrapped_idx]
+            vim.api.nvim_echo({ { spin_str .. " Building Rez Package " .. spin_str, "Normal" } }, false, {})
+        end)
+    )
+end
+
+local function stop_echo_spinner()
+    spin_timer:stop()
+end
+
 map({ "n", "t" }, "<leader>pb", function()
+    start_echo_spinner()
+    local stack_trace = ""
+
     vim.fn.jobstart({ "rez", "build", "-ic" }, {
+        on_stderr = function(job_id, data, event)
+            -- Accumulate error messages
+            table.remove(data)
+            stack_trace = stack_trace .. "\n" .. table.concat(data, "\n")
+        end,
         on_exit = function(id, exitcode, event)
+            stop_echo_spinner()
             if exitcode == 0 then
                 vim.api.nvim_echo({ { " Package Build Complete ", "DiagnosticOk" } }, true, {})
             else
-                vim.api.nvim_echo({ { " Package Build Failed ", "ErrorMsg" } }, true, {})
+                vim.notify(stack_trace .. "\n" .. " Package Build Failed ", vim.log.levels.ERROR)
             end
         end,
     })
