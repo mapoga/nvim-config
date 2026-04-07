@@ -80,14 +80,14 @@ end
 
 map({ "n", "t" }, "<leader>pb", function()
     local stack_trace = ""
+    vim.fn.jobstart({ "rez", "build", "-ic" }, {
 
-    -- Catch if rez if not installed.
-    local succes, _ = pcall(vim.fn.jobstart({ "rez", "build", "-ic" }, {
         on_stderr = function(job_id, data, event)
             -- Accumulate error messages
             table.remove(data)
             stack_trace = stack_trace .. "\n" .. table.concat(data, "\n")
         end,
+
         on_exit = function(id, exitcode, event)
             stop_echo_spinner()
             if exitcode == 0 then
@@ -96,13 +96,8 @@ map({ "n", "t" }, "<leader>pb", function()
                 vim.notify(stack_trace .. "\n" .. " Package Build Failed ", vim.log.levels.ERROR)
             end
         end,
-    }))
-
-    if success then
-        start_echo_spinner()
-    else
-        stop_echo_spinner()
-    end
+    })
+    start_echo_spinner()
 end, { desc = "Package Build (rez)" })
 
 --
