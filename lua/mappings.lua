@@ -1,27 +1,119 @@
 require "nvchad.mappings"
 
 -- add yours here
-
 local map = vim.keymap.set
+local wk = require "which-key"
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
 --
--- Custom
-local wk = require "which-key"
+-- Which-Key ------------------------------------------------------------------
+-- Clear NvChad mappings
+vim.keymap.del("n", "<leader>wk") -- whichkey query lookup
+vim.keymap.del("n", "<leader>wK") -- whichkey all keymaps
 
--- Windows
+--
+-- Toggle ---------------------------------------------------------------------
+wk.add {
+    { "<leader>t", group = "Toggle" },
+    -- Formatting
+    {
+        "<leader>tf",
+        "<cmd>FormatToggle<CR>",
+        desc = "Toggle Format-on-save",
+        icon = { icon = "", color = "yellow" },
+    },
+    -- Line Number
+    { "<leader>tl", "<cmd>set nu!<CR>", desc = "Toggle Line number" },
+    { "<leader>tr", "<cmd>set rnu!<CR>", desc = "Toggle Relative number" },
+    -- NvChad
+    { "<leader>tc", "<cmd>NvCheatsheet<CR>", desc = "Toggle Cheatsheet (NvChad)" },
+}
+-- Clear NvChad mappings
+vim.keymap.del("n", "<leader>th") -- Themes (NvChad)
+vim.keymap.del("n", "<leader>n") -- Line Number
+vim.keymap.del("n", "<leader>rn") -- Relative Number
+vim.keymap.del("n", "<leader>ch") -- Cheatsheet (NvChad)
+
+--
+-- Hidden Terimals ------------------------------------------------------------
+map({ "n", "t" }, "<leader>v", function()
+    require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
+end, { desc = "Toggle Vert Terminal" })
+
+map({ "n", "t" }, "<leader>h", function()
+    require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+end, { desc = "Toggle Hori Terminal" })
+
+map({ "n", "t" }, "<leader>i", function()
+    require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+end, { desc = "Toggle Float Terminal" })
+-- Clear NvChad mappings
+vim.keymap.del({ "n", "t" }, "<A-v>") -- Hidden Vert Term
+vim.keymap.del({ "n", "t" }, "<A-h>") -- Hidden Hori Term
+vim.keymap.del({ "n", "t" }, "<A-i>") -- Hidden Float Term
+
+-- Rez ------------------------------------------------------------------------
+map({ "n", "t" }, "<leader>pb", function()
+    vim.fn.jobstart({ "rez", "build", "-ic" }, {
+        on_exit = function(id, exitcode, event)
+            if exitcode == 0 then
+                vim.api.nvim_echo({ { " Package Build Complete ", "DiagnosticOk" } }, true, {})
+            else
+                vim.api.nvim_echo({ { " Package Build Failed ", "ErrorMsg" } }, true, {})
+            end
+        end,
+    })
+end, { desc = "Package Build (rez)" })
+
+--
+-- Windows --------------------------------------------------------------------
 wk.add {
     { "<C-w>h", "<cmd>split<CR>", desc = "Split window horizontally" },
 }
 
--- Telescope Changed Files
+--
+-- Find -----------------------------------------------------------------------
 wk.add {
-    { "<leader>fg", "<cmd>Telescope git_status<CR>", desc = "telescope git status" },
+    { "<leader>f", group = "Find" },
+    -- Files
+    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+    { "<leader>fo", "<cmd>Telescope oldfiles<CR>", desc = "Find Old" },
+    { "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", desc = "Find All files" },
+    { "<leader>fw", "<cmd>Telescope live_grep<CR>", desc = "Find Grep" },
+    -- Current Buffer
+    { "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Fuzzy search" },
+    -- Git
+    { "<leader>fg", "<cmd>Telescope git_status<CR>", desc = "Find Git Files" },
+    -- Vim
+    { "<leader>fk", "<cmd>Telescope marks<CR>", desc = "Find Marks" },
+    { "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Find Buffers" },
+    { "<leader>ft", "<cmd>Telescope terms<CR>", desc = "Find Terminal" },
+    { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Find Help" },
+    {
+        "<leader>fs",
+        function()
+            require("nvchad.themes").open()
+        end,
+        desc = "Find Style",
+    },
+}
+-- Clear NvChad mappings
+vim.keymap.del("n", "<leader>pt") -- Pick Term
+vim.keymap.del("n", "<leader>gt") -- Git Status
+vim.keymap.del("n", "<leader>cm") -- Git Commits
+vim.keymap.del("n", "<leader>ma") -- Pick Marks
+
+--
+-- Git ------------------------------------------------------------------------
+wk.add {
+    { "<leader>g", group = "Git" },
+    { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Git Commits" },
 }
 
--- Tmux Navigation
+--
+-- Tmux Navigation ------------------------------------------------------------
 wk.add {
     { "<C-h>", "<cmd>TmuxNavigateLeft<CR>", desc = "window left" },
     { "<C-l>", "<cmd>TmuxNavigateRight<CR>", desc = "window right" },
@@ -29,60 +121,41 @@ wk.add {
     { "<C-k>", "<cmd>TmuxNavigateUp<CR>", desc = "window up" },
 }
 
--- Gimmicks
+--
+-- Formatting -----------------------------------------------------------------
 wk.add {
+    { "<leader>fm", group = "Format" },
     {
-        "<leader>pr",
-        "<cmd>CellularAutomaton make_it_rain<CR>",
-        desc = "Falling Sand",
-        icon = { icon = "󰊗", color = "yellow" },
+        "<leader>fmf",
+        function()
+            require("conform").format { lsp_fallback = true }
+        end,
+        desc = "Format File",
+        icon = { icon = " ", color = "cyan" },
     },
     {
-        "<leader>ps",
-        "<cmd>SnakeStart<CR>",
-        desc = "Snake Game",
-        icon = { icon = "󰊗", color = "yellow" },
+        "<leader>fmd",
+        '<cmd>args ./**/*.py | argdo execute "normal gg" | update<CR>',
+        desc = "Format Directory (Python)",
+        icon = { icon = " ", color = "cyan" },
     },
 }
+-- Clear NvChad mappings
+vim.keymap.del("n", "<leader>fm")
 
--- Formatting
-wk.add {
-    {
-        "<leader>fp",
-        '<cmd>args ./**/*.py | argdo execute "normal gg" | write<CR>',
-        desc = "Format CWD python files",
-        -- icon = { icon = "󰊢", color = "orange" },
-    },
-    {
-        "<leader>ft",
-        "<cmd>FormatToggle<CR>",
-        desc = "Toggle Format-On-Save",
-        icon = { icon = "", color = "yellow" },
-    },
-}
-
--- Custom work directory finder
+--
+-- Work Directory -------------------------------------------------------------
 wk.add {
     { "<leader>fd", group = "Directory" },
     {
         "<leader>fdr",
         function()
             require("configs/cwd_switcher").glob_picker("/Y/rez/packages/", "*/*/*", {
-                prompt_title = "Find Released Package",
+                prompt_title = "Find Rez Package",
                 layout_config = { width = 0.3, height = 0.4, prompt_position = "top" },
             })
         end,
-        desc = "Find Released",
-    },
-    {
-        "<leader>fdy",
-        function()
-            require("configs/cwd_switcher").glob_picker("~/Documents/python_packages/", "*/*", {
-                prompt_title = "Find Python Package",
-                layout_config = { width = 0.3, height = 0.4, prompt_position = "top" },
-            })
-        end,
-        desc = "Find Python",
+        desc = "Find Rez",
     },
     {
         "<leader>fdw",
@@ -95,23 +168,19 @@ wk.add {
         desc = "Find Work",
     },
     {
-        "<leader>fdp",
-        function()
-            require("configs/cwd_switcher").glob_picker("/Y/rez/packages/publish_type/", "*/*", {
-                prompt_title = "Find Rez Publish Type",
-                layout_config = { width = 0.4, height = 0.8, prompt_position = "top" },
-            })
-        end,
-        desc = "Find PublishType",
-    },
-    {
         "<leader>fdt",
         function()
-            require("configs/cwd_switcher").glob_picker("/Y/rez/packages/tools/", "*/*", {
-                prompt_title = "Find Rez Tool",
-                layout_config = { width = 0.4, height = 0.8, prompt_position = "top" },
+            require("configs/cwd_switcher").glob_picker("~/Documents/", "test*", {
+                prompt_title = "Find Tests",
+                layout_config = { width = 0.3, height = 0.4, prompt_position = "top" },
             })
         end,
-        desc = "Find Tool",
+        desc = "Find Test",
     },
+}
+
+--
+-- Play -----------------------------------------------------------------------
+wk.add {
+    { "<leader>p", group = "Play" },
 }

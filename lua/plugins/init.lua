@@ -11,71 +11,93 @@ return {
         end,
     },
 
+    -- Add a new rule for "play".
+    -- whichi-key is already loaded by NvChad.
+    {
+        "folke/which-key.nvim",
+        opts = {
+            icons = {
+                rules = {
+                    { pattern = "play", icon = "󰊗", color = "yellow" },
+                    { pattern = "pick", icon = "", color = "blue" },
+                    { pattern = "git", icon = "󰊢", color = "orange" },
+                },
+            },
+        },
+    },
+
+    {
+        "mg979/vim-visual-multi",
+        branch = "master",
+        keys = {
+            { "\\\\" }, -- Load the plugin using the plugin's prefix "\\"
+        },
+    },
+
     {
         "Wansmer/treesj",
-        keys = { "<space>m", "<space>j", "<space>s" },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = function()
             require("treesj").setup {
                 max_join_length = 80,
             }
         end,
+        keys = { "<space>m", "<space>j", "<space>s" },
     },
 
     {
         "stevearc/conform.nvim",
-        event = "BufWritePre",
         config = function()
             require "configs.conform"
         end,
+        event = "BufWritePre",
     },
 
     {
         "zapling/mason-conform.nvim",
-        event = "VeryLazy",
         dependencies = { "conform.nvim" },
         config = function()
             require "configs.mason-conform"
         end,
+        event = "VeryLazy",
     },
 
     {
         "mfussenegger/nvim-lint",
+        config = function()
+            require "configs.lint"
+        end,
         event = {
             "BufReadPre",
             "BufNewFile",
         },
-        config = function()
-            require "configs.lint"
-        end,
     },
 
     {
         "rshkarin/mason-nvim-lint",
-        event = "VeryLazy",
         dependencies = { "nvim-lint" },
         config = function()
             require "configs.mason-lint"
         end,
+        event = "VeryLazy",
     },
 
     {
         "nvim-treesitter/nvim-treesitter",
-        event = {
-            "BufReadPre",
-            "BufNewFile",
-        },
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
         config = function()
             require "configs/treesitter"
         end,
+        event = {
+            "BufReadPre",
+            "BufNewFile",
+        },
     },
 
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
-        lazy = true,
         config = function()
             require "configs/nvim-treesitter-textobjects"
 
@@ -91,41 +113,41 @@ return {
             vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
             vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
         end,
+        lazy = true,
     },
 
     {
         "neovim/nvim-lspconfig",
-        event = {
-            "BufReadPre",
-            "BufNewFile",
-        },
         config = function()
             require("nvchad.configs.lspconfig").defaults()
             require "configs.lspconfig"
         end,
+        event = {
+            "BufReadPre",
+            "BufNewFile",
+        },
     },
 
     {
         "williamboman/mason-lspconfig.nvim",
-        event = "VeryLazy",
         dependencies = { "nvim-lspconfig" },
         config = function()
             require "configs.mason-lspconfig"
         end,
+        event = "VeryLazy",
     },
 
     {
         "danymat/neogen",
-        event = "VeryLazy",
         dependencies = { "nvim-treesitter" },
         config = function()
             require "configs.neogen"
         end,
+        event = "VeryLazy",
     },
 
     {
         "folke/todo-comments.nvim",
-        event = "VeryLazy",
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {
             keywords = {
@@ -134,6 +156,7 @@ return {
                 },
             },
         },
+        event = "VeryLazy",
     },
 
     {
@@ -144,7 +167,6 @@ return {
             "mfussenegger/nvim-dap-python", --optional
             { "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
         },
-        lazy = false,
         branch = "regexp", -- This is the regexp branch, use this for the new version
         config = function()
             require("venv-selector").setup {
@@ -160,28 +182,29 @@ return {
                 },
             }
         end,
+        lazy = false,
         keys = {
-            { ",v", "<cmd>VenvSelect<cr>" },
+            { "<leader>fv", "<cmd>VenvSelect<cr>", desc = "Find Venv (Python)" },
         },
     },
 
     {
         "lewis6991/gitsigns.nvim",
-        event = "User FilePost",
         config = function()
             require "configs.gitsigns"
         end,
+        event = "User FilePost",
     },
 
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
-        event = "VeryLazy",
         config = function()
             require("nvim-surround").setup {
                 -- Configuration here, or leave empty to use defaults
             }
         end,
+        event = "VeryLazy",
     },
 
     {
@@ -193,6 +216,10 @@ return {
 
     {
         "kdheepak/lazygit.nvim",
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
         lazy = true,
         cmd = {
             "LazyGit",
@@ -201,36 +228,15 @@ return {
             "LazyGitFilter",
             "LazyGitFilterCurrentFile",
         },
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        -- setting the keybinding for LazyGit with 'keys' is recommended in
-        -- order to load the plugin when the command is run for the first time
         keys = {
-            { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+            { "<leader>gl", "<cmd>LazyGit<cr>", desc = "Git Lazygit" },
         },
     },
 
     {
         "eandrju/cellular-automaton.nvim",
-        lazy = false,
-    },
-
-    {
-        "Febri-i/snake.nvim",
-        lazy = false,
-        dependencies = {
-            "Febri-i/fscreen.nvim",
+        keys = {
+            { "<leader>ps", "<cmd>CellularAutomaton make_it_rain<CR>", desc = "Play Sand" },
         },
-        opts = {},
     },
-
-    -- {
-    --     "arnamak/stay-centered.nvim",
-    --     lazy = false,
-    --     opts = {
-    --         skip_filetypes = {},
-    --     },
-    -- },
 }

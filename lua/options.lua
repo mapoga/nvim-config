@@ -2,6 +2,9 @@ require "nvchad.options"
 
 local o = vim.o
 
+-- Clipboard
+o.clipboard = "unnamedplus"
+
 -- Indenting
 o.shiftwidth = 4
 o.tabstop = 4

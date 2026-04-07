@@ -41,16 +41,3 @@ end)
 vim.g.vscode_snippets_path = "./snippets/"
 -- Fix bad reversed highlighting of matching brackets.
 vim.api.nvim_set_hl(0, "MatchParen", { underline = true, sp = "orange" })
-
--- Make clipboard over SSH work
-vim.g.clipboard = {
-    name = "OSC 52",
-    copy = {
-        ["+"] = require("vim.ui.clipboard.osc52").copy "+",
-        ["*"] = require("vim.ui.clipboard.osc52").copy "*",
-    },
-    paste = {
-        ["+"] = require("vim.ui.clipboard.osc52").paste "+",
-        ["*"] = require("vim.ui.clipboard.osc52").paste "*",
-    },
-}

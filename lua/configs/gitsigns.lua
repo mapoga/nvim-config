@@ -37,8 +37,8 @@ require("gitsigns").setup {
         local wk = require "which-key"
         -- Actions
         wk.add {
-            { "<leader>gs", gitsigns.stage_hunk, desc = "git stage hunk", icon = { icon = "󰊢", color = "orange" } },
-            { "<leader>gr", gitsigns.reset_hunk, desc = "git reset hunk", icon = { icon = "󰊢", color = "orange" } },
+            { "<leader>gs", gitsigns.stage_hunk, desc = "git stage hunk" },
+            { "<leader>gr", gitsigns.reset_hunk, desc = "git reset hunk" },
             {
                 "<leader>gs",
                 function()
@@ -46,7 +46,6 @@ require("gitsigns").setup {
                 end,
                 desc = "git stage hunk",
                 mode = "v",
-                icon = { icon = "󰊢", color = "orange" },
             },
             {
                 "<leader>gr",
@@ -55,63 +54,35 @@ require("gitsigns").setup {
                 end,
                 desc = "git reset hunk",
                 mode = "v",
-                icon = { icon = "󰊢", color = "orange" },
             },
-            {
-                "<leader>gS",
-                gitsigns.stage_buffer,
-                desc = "git stage buffer",
-                icon = { icon = "󰊢", color = "orange" },
-            },
-            {
-                "<leader>gu",
-                gitsigns.undo_stage_hunk,
-                desc = "git undo stage hunk",
-                icon = { icon = "󰊢", color = "orange" },
-            },
-            {
-                "<leader>gR",
-                gitsigns.reset_buffer,
-                desc = "git reset buffer",
-                icon = { icon = "󰊢", color = "orange" },
-            },
-            {
-                "<leader>gp",
-                gitsigns.preview_hunk,
-                desc = "git preview hunk",
-                icon = { icon = "󰊢", color = "orange" },
-            },
+            { "<leader>gS", gitsigns.stage_buffer, desc = "git stage buffer" },
+            { "<leader>gu", gitsigns.undo_stage_hunk, desc = "git undo stage hunk" },
+            { "<leader>gR", gitsigns.reset_buffer, desc = "git reset buffer" },
+            { "<leader>gp", gitsigns.preview_hunk, desc = "git preview hunk" },
             {
                 "<leader>gb",
                 function()
                     gitsigns.blame_line { full = true }
                 end,
                 desc = "git blame line",
-                icon = { icon = "󰊢", color = "orange" },
             },
-            {
-                "<leader>tb",
-                gitsigns.toggle_current_line_blame,
-                desc = "git toggle current line blame",
-                icon = { icon = "󰊢", color = "orange" },
-            },
-            { "<leader>gd", gitsigns.diffthis, desc = "git diff this", icon = { icon = "󰊢", color = "orange" } },
+            { "<leader>tb", gitsigns.toggle_current_line_blame, desc = "Toggle Blame (git)" },
+            { "<leader>gd", gitsigns.diffthis, desc = "git diff this" },
             {
                 "<leader>gD",
                 function()
                     gitsigns.diffthis "~"
                 end,
                 desc = "git diff this ~",
-                icon = { icon = "󰊢", color = "orange" },
             },
             {
                 "<leader>td",
                 gitsigns.toggle_deleted,
                 desc = "git toggle deleted",
-                icon = { icon = "󰊢", color = "orange" },
+                desc = "Toggle Deleted (git)",
             },
             -- Text object
-            { "ih", mode = { "o", "x" }, ":<C-U>Gitsigns select_hunk<CR>", icon = { icon = "󰊢", color = "orange" } },
+            { "ih", mode = { "o", "x" }, ":<C-U>Gitsigns select_hunk<CR>" },
         }
     end,
 }
