@@ -38,17 +38,17 @@ vim.keymap.del("n", "<leader>ch") -- Cheatsheet (NvChad)
 
 --
 -- Hidden Terimals ------------------------------------------------------------
-map({ "n", "t" }, "<leader>v", function()
+map({ "n", "t" }, "<leader>tv", function()
     require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-end, { desc = "Toggle Vert Terminal" })
+end, { desc = "Toggle Vertical Term" })
 
-map({ "n", "t" }, "<leader>h", function()
+map({ "n", "t" }, "<leader>th", function()
     require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
-end, { desc = "Toggle Hori Terminal" })
+end, { desc = "Toggle Horizontal Term" })
 
-map({ "n", "t" }, "<leader>i", function()
+map({ "n", "t" }, "<leader>tt", function()
     require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "Toggle Float Terminal" })
+end, { desc = "Toggle Floating Term" })
 -- Clear NvChad mappings
 vim.keymap.del({ "n", "t" }, "<A-v>") -- Hidden Vert Term
 vim.keymap.del({ "n", "t" }, "<A-h>") -- Hidden Hori Term
@@ -79,10 +79,10 @@ local function stop_echo_spinner()
 end
 
 map({ "n", "t" }, "<leader>pb", function()
-    start_echo_spinner()
     local stack_trace = ""
 
-    vim.fn.jobstart({ "rez", "build", "-ic" }, {
+    -- Catch if rez if not installed.
+    local succes, _ = pcall(vim.fn.jobstart({ "rez", "build", "-ic" }, {
         on_stderr = function(job_id, data, event)
             -- Accumulate error messages
             table.remove(data)
@@ -96,7 +96,13 @@ map({ "n", "t" }, "<leader>pb", function()
                 vim.notify(stack_trace .. "\n" .. " Package Build Failed ", vim.log.levels.ERROR)
             end
         end,
-    })
+    }))
+
+    if success then
+        start_echo_spinner()
+    else
+        stop_echo_spinner()
+    end
 end, { desc = "Package Build (rez)" })
 
 --
