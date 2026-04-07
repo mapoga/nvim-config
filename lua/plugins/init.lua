@@ -5,6 +5,14 @@ return {
     },
 
     {
+        "vladdoster/remember.nvim",
+        lazy = false,
+        config = function()
+            require "remember"
+        end,
+    },
+
+    {
         "nvim-telescope/telescope.nvim",
         opts = function()
             return require "configs.telescope"
