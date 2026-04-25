@@ -95,6 +95,7 @@ return {
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
+        branch = "master",
         config = function()
             require "configs/treesitter"
         end,
@@ -106,6 +107,7 @@ return {
 
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
+        branch = "master",
         config = function()
             require "configs/nvim-treesitter-textobjects"
 
